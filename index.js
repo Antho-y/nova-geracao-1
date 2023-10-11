@@ -15,8 +15,9 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/admin', admin_route)
 app.use('/aluno', aluno_route)
+app.use('/professor', professor_route)
 
 app.use('/pages/professor', express.static(path.join(__dirname, 'professor')))
-app.use('/professor', professor_route)
+app.use('/pages/aluno', express.static(path.join(__dirname, 'aluno')))
 
 module.exports = app

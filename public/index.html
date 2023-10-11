@@ -6,19 +6,34 @@
 </head>
 <body>
     Home works!
-    <form id="sign-in">
+    <form id="signin-professor">
+        <h3>Login Professor</h3>
         <label for="login">Login</label>
         <input type="text" name="login">
+        <br>
         <label for="password">Password</label>
         <input type="text" name="password">
+        <br>
         <button type="submit">Sign In</button>
     </form>
+
+    <form id="signin-aluno">
+        <h3>Login Aluno</h3>
+        <label for="login">Login</label>
+        <input type="text" name="login">
+        <br>
+        <label for="password">Password</label>
+        <input type="text" name="password">
+        <br>
+        <button type="submit">Sign In</button>
+    </form>
+
     <script>
-        const signin_form = document.querySelector('#sign-in')
-        signin_form.addEventListener('submit', (e) => {
+        const signin_professor = document.querySelector('#signin-professor')
+        signin_professor.addEventListener('submit', (e) => {
             e.preventDefault()
-            const login = signin_form['login'].value
-            const password = signin_form['password'].value
+            const login = signin_professor['login'].value
+            const password = signin_professor['password'].value
 
             fetch('/professor/signin-professor', {
                 method: 'POST',
@@ -32,6 +47,28 @@
                 if(data != undefined) {
                     window.localStorage.setItem('token', data.token);
                     window.location.href = "/pages/professor/professor.html";
+                }
+            })
+        })
+
+        const signin_aluno = document.querySelector('#signin-aluno')
+        signin_aluno.addEventListener('submit', (e) => {
+            e.preventDefault()
+            const login = signin_aluno['login'].value
+            const password = signin_aluno['password'].value
+
+            fetch('/aluno/signin-aluno', {
+                method: 'POST',
+                headers: { 'Content-Type':'application/json' },
+                body: JSON.stringify({ login: login, senha: password })  
+            }).then(res => {
+                if(res.ok) {
+                    return res.json()
+                }
+            }).then(data => {
+                if(data != undefined) {
+                    window.localStorage.setItem('token', data.token);
+                    window.location.href = "/pages/aluno/aluno.html";
                 }
             })
         })
