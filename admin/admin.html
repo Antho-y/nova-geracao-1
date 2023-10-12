@@ -1,0 +1,54 @@
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+</head>
+<body style="display: none;">
+    <h1>Admin works!</h1>
+    <button id="logout">Logout</button>
+
+    <form id="signup-aluno">
+        <h3>Signup Aluno</h3>
+        <label for="login">Login</label>
+        <input type="text" name="login">
+        <br>
+        <label for="password">Password</label>
+        <input type="text" name="password">
+        <br>
+        <button type="submit">Sign Up</button>
+    </form>
+</body>
+<script>
+    const token = window.localStorage.getItem('token');
+    if(token) {
+        const body = document.querySelector('body')
+        body.style.display = 'block'
+    }
+    const button = document.querySelector('#logout')
+    button.addEventListener('click', () => {
+        window.localStorage.removeItem('token')
+        window.location.href = "/";
+    })
+    const signup_aluno = document.querySelector('#signup-aluno')
+        signup_aluno.addEventListener('submit', (e) => {
+            e.preventDefault()
+            const login = signup_aluno['login'].value
+            const password = signup_aluno['password'].value
+
+            fetch('/admin/signup-aluno', {
+                method: 'POST',
+                headers: { 'Content-Type':'application/json' },
+                body: JSON.stringify({ login: login, senha: password })  
+            }).then(res => {
+                if(res.ok) {
+                    return res.json()
+                }
+            }).then(data => {
+                if(data != undefined) {
+                    console.log(data)
+                }
+            })
+        })
+</script>
+</html>

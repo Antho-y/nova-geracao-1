@@ -19,5 +19,6 @@ app.use('/professor', professor_route)
 
 app.use('/pages/professor', express.static(path.join(__dirname, 'professor')))
 app.use('/pages/aluno', express.static(path.join(__dirname, 'aluno')))
+app.use('/pages/admin', express.static(path.join(__dirname, 'admin')))
 
 module.exports = app
